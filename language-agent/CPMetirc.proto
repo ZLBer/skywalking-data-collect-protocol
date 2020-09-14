@@ -1,0 +1,68 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.apache.skywalking.apm.network.language.agent.v3";
+option csharp_namespace = "SkyWalking.NetworkProtocol";
+option go_package = "skywalking/network/language/agent/v3";
+
+import "common/Common.proto";
+
+service CPMetricReportService {
+    rpc collect (CPMetricCollection) returns (Commands) {
+    }
+}
+
+message CPMetricCollection {
+    repeated CPMetric metrics = 1;
+    string service = 2;
+    string serviceInstance = 3;
+}
+
+message CPMetric {
+    int64 time = 1;
+    string cpIdentity = 2;
+    string cpType  = 3;
+    CPInfo cpInfo = 4;
+    int32 poolingCount = 5;
+    int32 activeCount = 6;
+    int32 waitThreadCount = 7;
+    int32 maxWaitThreadCount = 8;
+    AlibabaDruidMetric alibabaDruidMetric = 9;
+    HikariCP hikariCP = 10;
+}
+message AlibabaDruidMetric{
+   int64 PSCacheAccessCount = 1;
+   int64 PSCacheHitCount = 2;
+   int64 PSCacheMissCount= 3;
+}
+
+message HikariCP{
+
+}
+message CPInfo {
+    string dbType = 1;
+    string dbName = 2;
+    string dbPeer = 3;
+    int32 initialSize = 5;
+    int32 minIdle = 6;
+    int32 maxActive = 7;
+    int32 maxWait = 8;
+}
