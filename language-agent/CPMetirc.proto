@@ -38,19 +38,19 @@ message CPMetricCollection {
 
 message CPMetric {
     int64 time = 1;
+    // Hashcode(cpType+dbpeer+dbName)
     string cpIdentity = 2;
-    string cpType  = 3;
-    string dbName = 4;
-    string dbPeer = 5;
-    int32 initialSize = 6;
-    int32 minIdle = 7;
-    int32 maxActive = 8;
-    int32 maxWait = 9;
-    int32 poolingCount = 10;
-    int32 activeCount = 11;
-    int32 waitThreadCount = 12;
-    int32 maxWaitThreadCount = 13;
-    repeated KeyValuePair args = 14;
+    //Maximum waiting time
+    int64 maxWaitTime = 3;
+    //Maximum waiting thread count
+    int32 maxWaitThreadCount = 4;
+    //The current usefull connection count
+    int32 poolingCount = 5;
+    //The current active connection count
+    int32 activeCount = 6;
+    //The current waiting thread count
+    int32 waitThreadCount = 7;
+    repeated KeyValuePair args = 8;
 }
 
 enum keyEnum{
