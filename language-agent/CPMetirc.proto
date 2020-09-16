@@ -40,29 +40,26 @@ message CPMetric {
     int64 time = 1;
     string cpIdentity = 2;
     string cpType  = 3;
-    CPInfo cpInfo = 4;
-    int32 poolingCount = 5;
-    int32 activeCount = 6;
-    int32 waitThreadCount = 7;
-    int32 maxWaitThreadCount = 8;
-    AlibabaDruidMetric alibabaDruidMetric = 9;
-    HikariCP hikariCP = 10;
-}
-message AlibabaDruidMetric{
-   int64 PSCacheAccessCount = 1;
-   int64 PSCacheHitCount = 2;
-   int64 PSCacheMissCount= 3;
+    string dbName = 4;
+    string dbPeer = 5;
+    int32 initialSize = 6;
+    int32 minIdle = 7;
+    int32 maxActive = 8;
+    int32 maxWait = 9;
+    int32 poolingCount = 10;
+    int32 activeCount = 11;
+    int32 waitThreadCount = 12;
+    int32 maxWaitThreadCount = 13;
+    repeated KeyValuePair args = 14;
 }
 
-message HikariCP{
-
+enum keyEnum{
+    PSCacheAccessCount = 0;
+    PSCacheHitCount = 1;
+    PSCacheMissCount= 2;
 }
-message CPInfo {
-    string dbType = 1;
-    string dbName = 2;
-    string dbPeer = 3;
-    int32 initialSize = 5;
-    int32 minIdle = 6;
-    int32 maxActive = 7;
-    int32 maxWait = 8;
+
+message KeyValuePair {
+    keyEnum key = 1;
+    int32 value = 2;
 }
